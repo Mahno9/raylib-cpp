@@ -162,17 +162,6 @@ class Color : public ::Color {
         return *this;
     }
 
-    inline Color& DrawText(
-            const ::Font& font,
-            const std::string& text,
-            ::Rectangle rec,
-            float fontSize,
-            float spacing,
-            bool wordWrap = false) {
-        ::DrawTextRec(font, text.c_str(), rec, fontSize, spacing, wordWrap, *this);
-        return *this;
-    }
-
     inline Color& DrawRectangle(int posX, int posY, int width, int height) {
         ::DrawRectangle(posX, posY, width, height, *this);
         return *this;
@@ -198,7 +187,7 @@ class Color : public ::Color {
         return *this;
     }
 
-    inline Color& DrawRectangleLines(::Rectangle rec, int lineThick) {
+    inline Color& DrawRectangleLines(::Rectangle rec, float lineThick) {
         ::DrawRectangleLinesEx(rec, lineThick, *this);
         return *this;
     }

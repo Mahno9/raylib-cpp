@@ -145,7 +145,7 @@ class Camera3D : public ::Camera3D {
             ::Vector3 center,
             float size,
             ::Color tint = {255, 255, 255, 255}) {
-        ::DrawBillboardRec(*this, texture, sourceRec, center, size, tint);
+        ::DrawBillboardRec(*this, texture, sourceRec, center, {size, size}, tint);
         return *this;
     }
 

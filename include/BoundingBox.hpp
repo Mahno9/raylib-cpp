@@ -18,7 +18,7 @@ class BoundingBox : public ::BoundingBox {
      * Compute mesh bounding box limits
      */
     BoundingBox(const ::Mesh& mesh) {
-        set(::MeshBoundingBox(mesh));
+        set(::GetMeshBoundingBox(mesh));
     }
 
     BoundingBox(::Vector3 minMax) : ::BoundingBox{minMax, minMax} {}
@@ -55,10 +55,10 @@ class BoundingBox : public ::BoundingBox {
     }
 
     /**
-     * Detect collision between ray and bounding box
+     * Get collision info between ray and box
      */
     inline bool CheckCollision(const ::Ray& ray) const {
-        return CheckCollisionRayBox(ray, *this);
+        return GetRayCollisionBox(ray, *this).hit;
     }
 
  private:

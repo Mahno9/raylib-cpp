@@ -27,8 +27,8 @@ int main() {
         45.0f,
         CAMERA_PERSPECTIVE);
 
-    Vector3 cubePosition;
-    Vector2 cubeScreenPosition;
+    Vector3 cubePosition{};
+    Vector2 cubeScreenPosition{};
 
     camera.SetMode(CAMERA_FREE);        // Set a free camera mode
 

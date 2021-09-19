@@ -35,7 +35,7 @@ class Image : public ::Image {
     }
 
     Image(const ::Texture2D& texture) {
-        set(::GetTextureData(texture));
+        set(::LoadImageFromTexture(texture));
     }
 
     Image(int width, int height, ::Color color = {255, 255, 255, 255}) {
@@ -75,7 +75,7 @@ class Image : public ::Image {
      * Get pixel data from screen buffer and return an Image (screenshot)
      */
     static ::Image GetScreenData() {
-        return ::GetScreenData();
+        return ::LoadImageFromScreen();
     }
 
     /**

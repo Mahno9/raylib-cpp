@@ -24,8 +24,8 @@ class Font : public ::Font {
         set(::LoadFont(fileName.c_str()));
     }
 
-    Font(const std::string& fileName, int fontSize, int* fontChars, int charCount)  {
-        set(::LoadFontEx(fileName.c_str(), fontSize, fontChars, charCount));
+    Font(const std::string& fileName, int fontSize, int* fontChars, int glyphCount)  {
+        set(::LoadFontEx(fileName.c_str(), fontSize, fontChars, glyphCount));
     }
 
     Font(const ::Image& image, ::Color key, int firstChar) {
@@ -33,9 +33,9 @@ class Font : public ::Font {
     }
 
     Font(const std::string& fileType, const unsigned char* fileData, int dataSize, int fontSize,
-            int *fontChars, int charsCount)  {
+            int *fontChars, int glyphCount)  {
         set(::LoadFontFromMemory(fileType.c_str(), fileData, dataSize, fontSize, fontChars,
-            charsCount));
+            glyphCount));
     }
 
     Font(const Font&) = delete;
@@ -44,11 +44,11 @@ class Font : public ::Font {
         set(other);
 
         other.baseSize = 0;
-        other.charsCount = 0;
-        other.charsPadding = 0;
+        other.glyphCount = 0;
+        other.glyphPadding = 0;
         other.texture = { 0 };
         other.recs = nullptr;
-        other.chars = nullptr;
+        other.glyphs = nullptr;
     }
 
     ~Font() {
@@ -60,11 +60,11 @@ class Font : public ::Font {
     }
 
     GETTERSETTER(int, BaseSize, baseSize)
-    GETTERSETTER(int, CharsCount, charsCount)
-    GETTERSETTER(int, CharsPadding, charsPadding)
+    GETTERSETTER(int, GlyphCount, glyphCount)
+    GETTERSETTER(int, GlyphPadding, glyphPadding)
     GETTERSETTER(::Texture2D, Texture, texture)
     GETTERSETTER(::Rectangle*, Recs, recs)
-    GETTERSETTER(::CharInfo*, Chars, chars)
+    GETTERSETTER(::GlyphInfo*, Glyphs, glyphs)
 
     Font& operator=(const ::Font& font) {
         set(font);
@@ -82,11 +82,11 @@ class Font : public ::Font {
         set(other);
 
         other.baseSize = 0;
-        other.charsCount = 0;
-        other.charsPadding = 0;
+        other.glyphCount = 0;
+        other.glyphPadding = 0;
         other.texture = { 0 };
         other.recs = nullptr;
-        other.chars = nullptr;
+        other.glyphs = nullptr;
 
         return *this;
     }
@@ -97,23 +97,6 @@ class Font : public ::Font {
     inline Font& DrawText(const std::string& text, ::Vector2 position, float fontSize,
             float spacing, ::Color tint = WHITE) {
         ::DrawTextEx(*this, text.c_str(), position,  fontSize,  spacing,  tint);
-        return *this;
-    }
-
-    inline Font& DrawText(const std::string& text, ::Rectangle rec, float fontSize, float spacing,
-            bool wordWrap = false, ::Color tint = WHITE) {
-        ::DrawTextRec(*this, text.c_str(), rec,  fontSize,  spacing,  wordWrap,  tint);
-        return *this;
-    }
-
-    /**
-     * Draw text using font inside rectangle limits with support for text selection.
-     */
-    inline Font& DrawText(const std::string& text, ::Rectangle rec, float fontSize, float spacing,
-            bool wordWrap, ::Color tint, int selectStart, int selectLength, ::Color selectText,
-            ::Color selectBack) {
-        ::DrawTextRecEx(*this, text.c_str(), rec, fontSize, spacing, wordWrap, tint,
-            selectStart,  selectLength, selectText, selectBack);
         return *this;
     }
 
@@ -153,11 +136,11 @@ class Font : public ::Font {
  private:
     void set(const ::Font& font) {
         baseSize = font.baseSize;
-        charsCount = font.charsCount;
-        charsPadding = font.charsPadding;
+        glyphCount = font.glyphCount;
+        glyphPadding = font.glyphPadding;
         texture = font.texture;
         recs = font.recs;
-        chars = font.chars;
+        glyphs = font.glyphs;
     }
 };
 }  // namespace raylib
